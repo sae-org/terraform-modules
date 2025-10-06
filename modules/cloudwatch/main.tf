@@ -17,8 +17,8 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_high" {
   treat_missing_data  = "notBreaching"          # missing data won’t trigger false alarms
 
   # Actions for alarm state transitions
-  alarm_actions = [aws_sns_topic.alerts.arn]    # send email when alarm triggers
-  ok_actions    = [aws_sns_topic.alerts.arn]    # send email when alarm returns to OK state
+  alarm_actions = [var.sns_topic]    # send email when alarm triggers
+  ok_actions    = [var.sns_topic]    # send email when alarm returns to OK state
 
   # Metric configuration
   namespace   = "AWS/EC2"
