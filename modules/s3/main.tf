@@ -1,10 +1,10 @@
 
 # Creating an S3 bucket for storing Terraform state
 resource "aws_s3_bucket" "s3" {
-  bucket = "${var.proj_prefix}-backend"
+  bucket = "${var.proj_prefix}-terraform-backend"
 
   tags   = { 
-		Name = "${var.proj_prefix}-backend" 
+		Name = "${var.proj_prefix}-terraform-backend" 
 	}
 }
 
