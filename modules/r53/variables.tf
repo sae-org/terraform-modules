@@ -15,3 +15,17 @@ variable "r53_records" {
 variable "create_domain" {
   type = bool
 }
+
+#-------------------------------------------------------------------------------------
+# DATA FILE SPECIFIC VARIABLES
+#-------------------------------------------------------------------------------------
+
+variable "environment" {
+  description = "Which working environment (dev, staging, prod)"
+  type        = string
+}
+
+variable "region" {
+  description = "Define aws region"
+  type        = string
+}

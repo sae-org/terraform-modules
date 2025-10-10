@@ -1,4 +1,4 @@
-data "terraform_remote_state" "vpc" {
+data "terraform_remote_state" "r53" {
   count = var.create_domain ? 0 : 1
   backend = "s3"
   config = {
