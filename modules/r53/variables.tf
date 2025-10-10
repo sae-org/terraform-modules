@@ -6,7 +6,7 @@ variable "domain_name" {
 
 # Map of subdomain => list of record objects (we consume the first item)
 # Using 'any' for flexibility; see comment above for expected shape.
-variable "r53_domains" {
+variable "r53_records" {
   type    = any
   default = []
 }
