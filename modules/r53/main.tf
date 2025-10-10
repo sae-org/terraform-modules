@@ -14,7 +14,7 @@ resource "aws_route53_zone" "public_hosted_zone" {
 # ===============================================================
 resource "time_sleep" "wait_5_mins" {
   depends_on = [aws_route53_zone.public_hosted_zone]  # ensure zone exists first
-  create_duration = "500s"                            # ~8 minutes 20 seconds
+  create_duration = "300s"                           
 }
 
 # ===============================================================
