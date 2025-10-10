@@ -15,14 +15,9 @@ variable "role_policy" {
   type        = string
 }
 
-# Full ARN of the first managed policy to attach (e.g., AmazonSSMManagedInstanceCore)
-variable "policy_attachment_1" {
-  description = "Managed policy ARN to attach to the role (e.g., AmazonSSMManagedInstanceCore)"
-  type        = string
+# Full ARN managed policies to attach 
+variable "policy_attachment" {
+  description = "Managed policy ARN to attach to the role" 
+  type        = list(string)
 }
 
-# Full ARN of the second managed policy to attach (e.g., CloudWatchAgentServerPolicy)
-variable "policy_attachment_2" {
-  description = "Managed policy ARN to attach to the role (e.g., CloudWatchAgentServerPolicy)"
-  type        = string
-}

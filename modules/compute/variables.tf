@@ -4,6 +4,11 @@ variable "proj_prefix" {
   description = "Prefix used to name the ASG and Launch Template"
 }
 
+# How many instances should be created 
+variable "ec2_count" {
+  type = number 
+  description = "How many instances to create"
+}
 # AMI to use for instances
 variable "ami" {
   type        = string
@@ -33,7 +38,13 @@ variable "pub_ip" {
 # Subnets where the ASG will launch instances (usually across AZs)
 variable "subnet_ids" {
   type        = list(string)
-  description = "List of subnet IDs for the ASG"
+  description = "List of subnet IDs for the ASG or EC2"
+}
+
+# Subnet where EC2 should be launched 
+variable "subnet_id" {
+  type        = string
+  description = "Subnet ID for EC2"
 }
 
 # Target Group ARNs to attach the ASG to (ALB/NLB)
@@ -75,4 +86,9 @@ variable "desired_capacity" {
 variable "max_size" {
   type        = number
   description = "Maximum number of instances in the ASG"
+}
+
+variable "user_data_replace" {
+  type = bool
+  description = "Whether to replace the instance when the user_data script changes"
 }
