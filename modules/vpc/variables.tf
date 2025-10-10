@@ -4,8 +4,8 @@ variable "cidr_block" {
   type        = string
 }
 
-# Project prefix used for naming AWS resources (e.g., "my-dev", "sae-org")
-variable "proj_prefix" {
+# env in which deploying vpc
+variable "env" {
   description = "Prefix added to resource names for easy identification"
   type        = string
 }

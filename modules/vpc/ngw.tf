@@ -7,7 +7,7 @@ resource "aws_nat_gateway" "ngw" {
   allocation_id = aws_eip.eip_ngw.id
   subnet_id     = values(aws_subnet.pub_sub)[0].id  # place NGW in the first public subnet
   tags = {
-    Name = "${var.proj_prefix}-ngw"
+    Name = "${var.env}-ngw"
   }
   # Make sure the IGW is created before NAT tries to route through it
   depends_on = [aws_internet_gateway.igw]
