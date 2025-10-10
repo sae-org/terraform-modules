@@ -6,11 +6,11 @@ resource "aws_instance" "webserver" {
   count                       = var.ec2_count
   instance_type               = var.ins_type
   ami                         = var.ami
-  key_name                    = aws_key_pair.newkey.key_name
+  key_name                    = var.key_name
   vpc_security_group_ids      = [module.sg_ec2.sg_id]
   iam_instance_profile        = var.iam_ins_profile
-  associate_public_ip_address = var.pub_ip
-  subnet_id                   = var.subnet_id
+  associate_public_ip_address = var.associate_pub_ip
+  subnet_id                   = data.terraform_remote_state.vpc.outputs.pri_sub_id
 
   dynamic "root_block_device" {
     for_each = var.root_block_device
