@@ -46,10 +46,10 @@ resource "time_sleep" "wait_5_mins" {
 resource "aws_route53_record" "site_domains" {
   depends_on = [time_sleep.wait_5_mins]  # wait for zone before creating records
 
-  # Build a map: subdomain => first record object in its list
+  # Build a map: record => first record object in its list
   for_each = {
-    for record, records in var.r53_records :
-    record => records[0]
+    for key, records in var.r53_records :
+    records[0].name => records[0]
   }
 
   # Use the newly-created hosted zone (index 0 because we used count)
@@ -58,6 +58,9 @@ resource "aws_route53_record" "site_domains" {
   # Record basic attributes from each.value (the chosen record object)
   name = each.value.name
   type = each.value.type
+
+  # ADD: let TF overwrite an existing identical record from prior runs
+  allow_overwrite = true
 
   # If an alias is provided, 'records' and 'ttl' must be null.
   # Otherwise, set a single-value record and a TTL (default 300).
