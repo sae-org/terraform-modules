@@ -53,7 +53,7 @@ resource "aws_route53_record" "site_domains" {
   }
 
   # Use the newly-created hosted zone (index 0 because we used count)
-  zone_id = var.create_domain ? aws_route53_zone.public_hosted_zone[0].zone_id : data.terraform_remote_state.r53[0].outputs.zone_id
+  zone_id = var.create_domain ? aws_route53_zone.public_hosted_zone[0].zone_id : data.terraform_remote_state.r53[0].outputs.r53.zone_id
 
   # Record basic attributes from each.value (the chosen record object)
   name = each.value.name
