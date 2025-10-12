@@ -55,12 +55,12 @@ resource "aws_route53_record" "site_domains" {
   # Use the newly-created hosted zone (index 0 because we used count)
   zone_id = var.create_domain ? aws_route53_zone.public_hosted_zone[0].zone_id : data.terraform_remote_state.r53[0].outputs.r53.zone_id
 
+# Let TF overwrite an existing identical record from prior runs
+  allow_overwrite = true
+
   # Record basic attributes from each.value (the chosen record object)
   name = each.value.name
   type = each.value.type
-
-  # ADD: let TF overwrite an existing identical record from prior runs
-  allow_overwrite = true
 
   # If an alias is provided, 'records' and 'ttl' must be null.
   # Otherwise, set a single-value record and a TTL (default 300).
