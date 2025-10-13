@@ -5,14 +5,6 @@ variable "proj_prefix" {
   default     = ""
 }
 
-# (Optional) EC2 ID placeholder (useful if registering targets manually)
-variable "ec2_id" {
-  description = "Optional EC2 instance ID (not used here but reserved for extensions)"
-  type        = string
-  default     = null
-  nullable    = true
-}
-
 # Whether the ALB is internal or internet-facing
 variable "internal" {
   description = "If true, ALB is internal; if false, internet-facing"
