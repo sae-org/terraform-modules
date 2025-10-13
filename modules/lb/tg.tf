@@ -13,6 +13,16 @@ resource "aws_lb_target_group" "tg" {
   protocol = each.value.protocol
   vpc_id   = data.terraform_remote_state.vpc.outputs.vpc.vpc_id   # Target groups are tied to a specific VPC
 
+  health_check {
+    protocol            = "HTTP"
+    path                = "/health"    # make your app return 200 here
+    port                = "traffic-port"
+    matcher             = "200-399"
+    interval            = 15
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+  }
   tags = {
     Name = "${var.proj_prefix}-tg-${each.key}"
   }
