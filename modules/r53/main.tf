@@ -38,7 +38,7 @@ resource "aws_route53_record" "site_domains" {
   # Build a map: record => first record object in its list
   for_each = {
     for key, records in var.r53_records :
-    records[0].name => records[0]
+    key => records[0]
   }
 
   # Use the newly-created hosted zone (index 0 because we used count)
