@@ -4,7 +4,7 @@
 # Creates one target group for each port defined in var.ports
 resource "aws_lb_target_group" "tg" {
   for_each = {
-    for p in var.ports : tostring(p.port) => p
+    for p in var.tg_ports : tostring(p.port) => p
   }
 
   # Example naming: myapp-tg-80-1, myapp-tg-443-1

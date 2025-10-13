@@ -7,7 +7,7 @@
 resource "aws_lb_listener" "alb_listeners" {
   # Loop over all provided ports in var.ports
   for_each = {
-    for p in var.ports : tostring(p.port) => p
+    for p in var.listener_ports : tostring(p.port) => p
   }
 
   # Attach the listener to the created ALB

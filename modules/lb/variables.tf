@@ -60,8 +60,8 @@ variable "enable_deletion_protection" {
   default     = false
 }
 
-# Listener ports and protocols (used for both listeners and target groups)
-variable "ports" {
+# Listener ports and protocols 
+variable "listener_ports" {
   description = "List of listener ports and protocols"
   type = list(object({
     port     = number
@@ -71,6 +71,15 @@ variable "ports" {
     { port = 80,  protocol = "HTTP"  },
     { port = 443, protocol = "HTTPS" }
   ]
+}
+
+# Target group ports
+variable "tg_ports" {
+  description = "Target group ports"
+  type = list(object({
+    port     = number
+    protocol = string
+  }))
 }
 
 # Redirect HTTP → HTTPS status code
