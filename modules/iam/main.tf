@@ -22,7 +22,7 @@ resource "aws_iam_role_policy" "role_policy" {
 
 # attaching policies to this role 
 # NOTE: pass a full policy ARN (e.g., arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore)
-resource "aws_iam_role_policy_attachment" "attachment_policypolicy" {
+resource "aws_iam_role_policy_attachment" "attachment_policy" {
   for_each = toset(var.policy_attachment)
   role       = aws_iam_role.iam_role.name
   policy_arn = each.value  

@@ -16,7 +16,7 @@ resource "aws_lb_listener" "alb_listeners" {
   protocol          = each.value.protocol
 
   # Only HTTPS listeners use a certificate; HTTP doesn't need one
-  certificate_arn = lower(each.value.protocol) == "https" ? var.cert_arn[var.primary_cert_domain] : null
+  certificate_arn = lower(each.value.protocol) == "https" ? data.terraform_remote_state.acm.outputs.certificate_arns[var.cert_name] : null
 
   # Listener default actions:
   # - If port == 80 (HTTP): redirect all traffic to HTTPS (port 443)

@@ -8,12 +8,12 @@ resource "aws_lb_target_group" "tg" {
   }
 
   # Example naming: myapp-tg-80-1, myapp-tg-443-1
-  name     = "${var.proj_prefix}-tg-${each.key}-1"
+  name     = "${var.proj_prefix}-tg-${each.key}"
   port     = each.value.port
   protocol = each.value.protocol
-  vpc_id   = var.vpc_id  # Target groups are tied to a specific VPC
+  vpc_id   = data.terraform_remote_state.vpc.outputs.vpc.vpc_id   # Target groups are tied to a specific VPC
 
   tags = {
-    Name = "${var.proj_prefix}-tg-${each.key}-1"
+    Name = "${var.proj_prefix}-tg-${each.key}"
   }
 }

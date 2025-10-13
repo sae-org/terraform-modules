@@ -37,15 +37,21 @@ variable "egress_rules" {
   description = "List of egress rules; defaults to allow-all"
 }
 
-# VPC where the SG will be created
-variable "vpc_id" {
-  type        = string
-  description = "VPC ID for the security group"
-}
-
 # Optional human-readable name (not used in resource; kept for compatibility)
 variable "name" {
   type        = string
   default     = " "
   description = "Optional external name (unused in resource, kept for compatibility)"
+}
+
+#-------------------------------------------------------------------------------------
+# DATA FILE SPECIFIC VARIABLES
+#-------------------------------------------------------------------------------------
+variable "environment" {
+  description = "Which working environment (dev, staging, prod)"
+  type        = string
+}
+variable "region" {
+  description = "Define aws region"
+  type        = string
 }

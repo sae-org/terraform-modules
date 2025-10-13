@@ -6,7 +6,7 @@
 
 resource "aws_security_group" "sg" {
   name   = "${var.proj_prefix}-sg"   # Resource name shown in AWS console
-  vpc_id = var.vpc_id                # VPC the SG belongs to
+  vpc_id = data.terraform_remote_state.vpc.outputs.vpc.vpc_id          # VPC the SG belongs to
 
   # -------------------------------
   # INGRESS (ALLOW INBOUND)

@@ -27,11 +27,6 @@ variable "ins_type" {
   description = "EC2 instance type for ASG instances"
 }
 
-variable "key_name" {
-  type        = string
-  description = "Name of the existing EC2 key pair to associate with instances for SSH access."
-}
-
 variable "iam_ins_profile" {
   type        = string
   default     = null
@@ -44,9 +39,9 @@ variable "associate_pub_ip" {
   description = "Associate a public IP address to instances (null to omit)"
 }
 
-variable "subnet_id" {
-  type        = string
-  description = "Subnet ID for EC2"
+variable "ec2_sg_id" {
+  type        = list(string)
+  description = "The sg id for ec2"
 }
 
 variable "root_block_device" {
@@ -61,25 +56,19 @@ variable "root_block_device" {
 
 variable "user_data" {
   type        = string
-  default     = ""
+  default     = null
   description = "Plaintext user data to run on instance boot (leave empty to omit)"
 }
 
 variable "user_data_replace" {
   type = bool
+  default     = null
   description = "Whether to replace the instance when the user_data script changes"
 }
 
 #-------------------------------------------------------------------------------------
 # KEY_PAIR SPECIFIC VARIABLES
 #-------------------------------------------------------------------------------------
-
-variable "key_name" {
-  description = "Optional explicit EC2 key pair name (defaults to <proj_prefix>-key)"
-  type        = string
-  default     = ""
-}
-
 variable "algorithm" {
   description = "TLS key algorithm"
   type        = string

@@ -7,11 +7,11 @@ data "terraform_remote_state" "vpc" {
   }
 }
 
-data "terraform_remote_state" "iam" {
+data "terraform_remote_state" "acm" {
   backend = "s3"
   config = {
     bucket = "sae-s3-terraform-backend"
-    key    = "${var.environment}/${var.region}/iam/terraform.tfstate"
+    key    = "${var.environment}/${var.region}/acm/terraform.tfstate"
     region = var.region
   }
 }

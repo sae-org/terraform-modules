@@ -5,12 +5,6 @@ variable "proj_prefix" {
   default     = ""
 }
 
-# ID of the VPC the ALB and Target Groups belong to
-variable "vpc_id" {
-  description = "VPC ID for Target Groups and ALB"
-  type        = string
-}
-
 # (Optional) EC2 ID placeholder (useful if registering targets manually)
 variable "ec2_id" {
   description = "Optional EC2 instance ID (not used here but reserved for extensions)"
@@ -24,6 +18,11 @@ variable "internal" {
   description = "If true, ALB is internal; if false, internet-facing"
   type        = bool
   default     = false
+}
+
+variable "cert_name" {
+  description = "The cert name being used for HTTPS"
+  type        = string
 }
 
 # Type of load balancer: "application" or "network"
@@ -74,21 +73,21 @@ variable "ports" {
   ]
 }
 
-# Map of domain name → ACM certificate ARN
-variable "cert_arn" {
-  description = "Map of domain name to ACM certificate ARN"
-  type        = map(string)
-}
-
-# Domain key to pick the primary certificate for HTTPS
-variable "primary_cert_domain" {
-  description = "Domain key to select primary ACM certificate ARN"
-  type        = string
-}
-
 # Redirect HTTP → HTTPS status code
 variable "http_status_code" {
   description = "Redirect status code used for HTTP to HTTPS (e.g., HTTP_301)"
   type        = string
   default     = "HTTP_301"
+}
+
+#-------------------------------------------------------------------------------------
+# DATA FILE SPECIFIC VARIABLES
+#-------------------------------------------------------------------------------------
+variable "environment" {
+  description = "Which working environment (dev, staging, prod)"
+  type        = string
+}
+variable "region" {
+  description = "Define aws region"
+  type        = string
 }
