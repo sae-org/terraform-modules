@@ -16,7 +16,7 @@ resource "aws_lb_listener" "alb_listeners" {
   protocol          = each.value.protocol
 
   # Only HTTPS listeners use a certificate; HTTP doesn't need one
-  certificate_arn = lower(each.value.protocol) == "https" ? data.terraform_remote_state.acm.outputs.certificate_arns[var.cert_name] : null
+  certificate_arn = lower(each.value.protocol) == "https" ? data.terraform_remote_state.acm.outputs.acm.certificate_arns[var.cert_name] : null
 
   # Listener default actions:
   # - If port == 80 (HTTP): redirect all traffic to HTTPS (port 443)
@@ -26,7 +26,7 @@ resource "aws_lb_listener" "alb_listeners" {
     content {
       type = default_action.value.port == 80 ? "redirect" : "forward"
 
-      # 1️⃣ Redirect HTTP (80) → HTTPS (443)
+      # Redirect HTTP (80) → HTTPS (443)
       dynamic "redirect" {
         for_each = default_action.value.port == 80 ? [1] : []
         content {
@@ -36,7 +36,7 @@ resource "aws_lb_listener" "alb_listeners" {
         }
       }
 
-      # 2️⃣ Forward HTTPS traffic → Target group (application)
+      # Forward HTTPS traffic → Target group (application)
       dynamic "forward" {
         for_each = default_action.value.port != 80 ? [1] : []
         content {
