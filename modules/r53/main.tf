@@ -8,16 +8,6 @@ resource "aws_route53_zone" "public_hosted_zone" {
 }
 
 # ===============================================================
-# WAIT FOR ZONE PROPAGATION (best-effort buffer)
-# Some providers/APIs need a short delay after zone creation before
-# records can be reliably created. This adds ~8m20s of wait time.
-# ===============================================================
-resource "time_sleep" "wait_5_mins" {
-  depends_on = [aws_route53_zone.public_hosted_zone]  # ensure zone exists first
-  create_duration = "300s"                           
-}
-
-# ===============================================================
 # ROUTE 53 RECORDS
 # Creates one record per subdomain based on var.r53_domains
 # Expects var.r53_domains to be a map where each key is a subdomain
@@ -44,7 +34,6 @@ resource "time_sleep" "wait_5_mins" {
 # }
 # ===============================================================
 resource "aws_route53_record" "site_domains" {
-  depends_on = [time_sleep.wait_5_mins]  # wait for zone before creating records
 
   # Build a map: record => first record object in its list
   for_each = {
