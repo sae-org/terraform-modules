@@ -25,6 +25,11 @@ variable "cert_name" {
   type        = string
 }
 
+variable "ec2_id" {
+  description = "The id of ec2 being registered "
+  type        = string
+}
+
 # Type of load balancer: "application" or "network"
 variable "lb_type" {
   description = "Load balancer type ('application' or 'network')"
