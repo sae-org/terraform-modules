@@ -25,6 +25,6 @@ resource "aws_instance" "webserver" {
   user_data_replace_on_change = var.user_data_replace
 
   tags = {
-    Name = "${var.proj_prefix}-EC2"
+    Name = "${var.proj_prefix}-ec2"
   }
 }
