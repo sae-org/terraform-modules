@@ -15,6 +15,7 @@ resource "aws_iam_instance_profile" "profile" {
 
 # creating policy for the ec2 role 
 resource "aws_iam_role_policy" "role_policy" {
+  count = var.role_policy != null ? 1 : 0
   name   = "${var.proj_prefix}-policy"
   role   = aws_iam_role.iam_role.id
   policy = var.role_policy   # JSON policy string
