@@ -27,7 +27,3 @@ resource "aws_iam_role_policy_attachment" "attachment_policy" {
   role       = aws_iam_role.iam_role.name
   policy_arn = each.value  
 }
-
-  \=[]
-  '[-=]'
-  ?.,mkjnhgfcdxz
