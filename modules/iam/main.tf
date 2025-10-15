@@ -9,6 +9,7 @@ resource "aws_iam_role" "iam_role" {
 
 # creating an instance profile for ssm 
 resource "aws_iam_instance_profile" "profile" {
+  count = var.create_profile ? 1 : 0 
   name = "${var.proj_prefix}-profile"
   role = aws_iam_role.iam_role.name
 }
