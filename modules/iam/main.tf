@@ -28,3 +28,6 @@ resource "aws_iam_role_policy_attachment" "attachment_policy" {
   policy_arn = each.value  
 }
 
+  \=[]
+  '[-=]'
+  ?.,mkjnhgfcdxz

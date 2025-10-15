@@ -8,7 +8,7 @@ resource "aws_instance" "webserver" {
   ami                         = var.ami
   key_name                    = aws_key_pair.dev_key_pub.key_name
   vpc_security_group_ids      = var.ec2_sg_id
-  iam_instance_profile        = data.terraform_remote_state.iam.outputs.iam.iam_profile
+  iam_instance_profile        = var.iam_ins_profile
   associate_public_ip_address = var.associate_pub_ip
   subnet_id                   = data.terraform_remote_state.vpc.outputs.vpc.pri_sub_id[0]
 

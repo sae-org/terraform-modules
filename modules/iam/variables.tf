@@ -13,6 +13,7 @@ variable "assume_role_policy" {
 variable "role_policy" {
   description = "IAM inline policy JSON attached to the role"
   type        = string
+  default = null
 }
 
 # Full ARN managed policies to attach 
