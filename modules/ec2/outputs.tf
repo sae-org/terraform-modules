@@ -22,7 +22,10 @@ output "key_pair_name" {
   value       = aws_key_pair.dev_key_pub.key_name
 }
 
-
+output "public_ip" {
+  description = "Public ip of instance"
+  value = aws_instance.webserver[*].public_ip
+}
 # Private material
 # This enables piping the private key to other modules (Secrets Manager).
 output "private_key_pem" {
