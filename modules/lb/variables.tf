@@ -20,6 +20,7 @@ variable "cert_name" {
 variable "target_id" {
   description = "The id of targets being registered "
   type        = string
+  default = null
 }
 
 # Type of load balancer: "application" or "network"
