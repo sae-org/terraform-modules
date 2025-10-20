@@ -17,8 +17,8 @@ variable "cert_name" {
   type        = string
 }
 
-variable "ec2_id" {
-  description = "The id of ec2 being registered "
+variable "target_id" {
+  description = "The id of targets being registered "
   type        = string
 }
 

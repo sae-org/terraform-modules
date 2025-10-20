@@ -36,6 +36,6 @@ resource "aws_lb_target_group_attachment" "tg_attachments" {
   #   443 = (Target Group resource for port 443)
   # }
   target_group_arn = each.value.arn
-  target_id        = var.ec2_id
+  target_id        = var.target_id
   port             = each.value.port
 }
