@@ -31,6 +31,7 @@ resource "aws_autoscaling_group" "web_asg" {
       min_healthy_percentage = 100  # maintain full capacity during refresh
       instance_warmup        = 300  # time for new instances to become healthy
     }
+    triggers = ["launch_template"]
   }
 
   # Tag instances as they launch (handy for console visibility and discovery)
@@ -39,6 +40,12 @@ resource "aws_autoscaling_group" "web_asg" {
     value               = "${var.proj_prefix}-asg"
     propagate_at_launch = true
   }
+  tag {
+    key                 = "Project"
+    value               = var.proj_prefix
+    propagate_at_launch = true
+  }
+
 
   # Safer rollouts: create new infra before destroying the old
   lifecycle {

@@ -15,10 +15,15 @@ resource "aws_launch_template" "web_lt" {
     name = var.iam_ins_profile
   }
 
+  # Basic monitoring on instances 
+  monitoring {
+    enabled = true
+  }
+
   # Networking for ENI 0
   network_interfaces {
     associate_public_ip_address = var.pub_ip              # true for public subnets / false for private
-    security_groups             = [module.sg_ec2.sg_id]   # Security Group for instances
+    security_groups             = [var.asg_sg_id]   # Security Group for instances
   }
 
   # Root EBS volume configuration (maps over list to allow overrides)
@@ -39,4 +44,8 @@ resource "aws_launch_template" "web_lt" {
 
   # Make the latest version the default so the ASG picks it up
   update_default_version = true
+
+    lifecycle {
+    create_before_destroy = true
+  }
 }

@@ -1,42 +1,33 @@
-# Naming prefix applied to created resources (e.g., "my-dev", "sae-org")
 variable "proj_prefix" {
   type        = string
   description = "Prefix used to name the ASG and Launch Template"
 }
-
-# AMI to use for instances
 variable "ami" {
   type        = string
   description = "AMI ID used by the Launch Template"
 }
-
-# EC2 instance type (e.g., t3.micro)
 variable "ins_type" {
   type        = string
   description = "EC2 instance type for ASG instances"
 }
-
-# Optional IAM Instance Profile name attached to instances
+variable "asg_sg_id" {
+  type        = string
+  description = "SG for asg"
+}
 variable "iam_ins_profile" {
   type        = string
   default     = null
   description = "IAM Instance Profile name for the instances (optional)"
 }
-
-# Whether to associate a public IP to instances
 variable "pub_ip" {
   type        = bool
   default     = null
   description = "Associate a public IP address to instances (null to omit)"
 }
-
-# Subnets where the ASG will launch instances (usually across AZs)
 variable "subnet_ids" {
   type        = list(string)
   description = "List of subnet IDs for the ASG or EC2"
 }
-
-# Target Group ARNs to attach the ASG to (ALB/NLB)
 variable "tg_arns" {
   type        = list(string)
   default     = []
@@ -77,3 +68,17 @@ variable "max_size" {
   description = "Maximum number of instances in the ASG"
 }
 
+#-------------------------------------------------------------------------------------
+# KEY_PAIR SPECIFIC VARIABLES
+#-------------------------------------------------------------------------------------
+variable "algorithm" {
+  description = "TLS key algorithm"
+  type        = string
+  default     = "RSA"
+}
+
+variable "rsa_bits" {
+  description = "RSA key size in bits"
+  type        = number
+  default     = 4096
+}
