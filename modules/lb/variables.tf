@@ -36,6 +36,10 @@ variable "security_groups" {
   default     = []
 }
 
+variable "create_tg_attachment" {
+  description = "if for asg, no need to create tg attachments, if for single ec2, create tg attachment"
+  type = bool
+}
 # Subnets where ALB will be deployed (must match VPC)
 variable "subnets" {
   description = "List of subnet IDs for ALB placement"

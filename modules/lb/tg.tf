@@ -30,12 +30,8 @@ resource "aws_lb_target_group" "tg" {
 
 # # attach tg to an instance
 resource "aws_lb_target_group_attachment" "tg_attachments" {
-  for_each = aws_lb_target_group.tg # says for all target groups created by .tg, create an attachment for each one
-  # { each.key           each.value
-  #   80  = (Target Group resource for port 80),
-  #   443 = (Target Group resource for port 443)
-  # }
-  target_group_arn = each.value.arn
+  count = var.create_tg_attachment ? 1 : 0 
+  target_group_arn = aws_lb_target_group.tg["80"].arn
   target_id        = var.target_id
-  port             = each.value.port
+  port             = 80
 }
