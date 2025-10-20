@@ -31,7 +31,6 @@ resource "aws_autoscaling_group" "web_asg" {
       min_healthy_percentage = 100  # maintain full capacity during refresh
       instance_warmup        = 300  # time for new instances to become healthy
     }
-    triggers = ["launch_template"]
   }
 
   # Tag instances as they launch (handy for console visibility and discovery)
