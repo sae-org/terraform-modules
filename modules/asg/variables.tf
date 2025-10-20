@@ -24,10 +24,6 @@ variable "pub_ip" {
   default     = null
   description = "Associate a public IP address to instances (null to omit)"
 }
-variable "subnet_ids" {
-  type        = list(string)
-  description = "List of subnet IDs for the ASG or EC2"
-}
 variable "tg_arns" {
   type        = list(string)
   default     = []
@@ -81,4 +77,18 @@ variable "rsa_bits" {
   description = "RSA key size in bits"
   type        = number
   default     = 4096
+}
+
+#-------------------------------------------------------------------------------------
+# DATA FILE SPECIFIC VARIABLES
+#-------------------------------------------------------------------------------------
+
+variable "environment" {
+  description = "Which working environment (dev, staging, prod)"
+  type        = string
+}
+
+variable "region" {
+  description = "Define aws region"
+  type        = string
 }

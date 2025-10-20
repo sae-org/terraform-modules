@@ -11,7 +11,7 @@ resource "aws_autoscaling_group" "web_asg" {
   max_size            = var.max_size
 
   # Subnets across AZs where instances will be launched
-  vpc_zone_identifier = var.subnet_ids
+  vpc_zone_identifier = data.terraform_remote_state.vpc.outputs.vpc.pri_sub_id
 
   # Attach to LB Target Groups (health check type "ELB" leverages TG health checks)
   target_group_arns         = var.tg_arns
