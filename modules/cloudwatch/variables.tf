@@ -12,6 +12,6 @@ variable "asg_name" {
 
 # SNS topic to send notifications
 variable "sns_topic" {
-  description = "SNS topic to which Cloudwatch will send notifications"
+  description = "ARN of the SNS topic to which Cloudwatch will send notifications"
   type        = string
 }
