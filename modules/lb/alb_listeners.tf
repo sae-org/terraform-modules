@@ -41,7 +41,7 @@ resource "aws_lb_listener" "alb_listeners" {
         for_each = default_action.value.port != 80 ? [1] : []
         content {
           target_group {
-            # Forwards to the TG created for port 80 (application port)
+            # Forwards to the TG created for port specified (application port)
             arn = aws_lb_target_group.tg[var.target_port].arn
           }
         }
