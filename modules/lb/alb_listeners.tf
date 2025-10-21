@@ -42,7 +42,7 @@ resource "aws_lb_listener" "alb_listeners" {
         content {
           target_group {
             # Forwards to the TG created for port 80 (application port)
-            arn = aws_lb_target_group.tg["80"].arn
+            arn = aws_lb_target_group.tg[var.target_port].arn
           }
         }
       }
