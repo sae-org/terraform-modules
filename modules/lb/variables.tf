@@ -83,6 +83,10 @@ variable "tg_ports" {
     protocol = string
   }))
 }
+variable "target_port" {
+  type        = number
+  description = "Backend app port the ALB forwards to (must exist in tg_ports), e.g., 80, 8080, etc."
+}
 
 # Redirect HTTP → HTTPS status code
 variable "http_status_code" {
