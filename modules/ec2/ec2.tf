@@ -10,7 +10,7 @@ resource "aws_instance" "webserver" {
   vpc_security_group_ids      = var.ec2_sg_id
   iam_instance_profile        = var.iam_ins_profile
   associate_public_ip_address = var.associate_pub_ip
-  subnet_id                   = data.terraform_remote_state.vpc.outputs.vpc.pri_sub_id[0]
+  subnet_id                   = var.private_ins ? data.terraform_remote_state.vpc.outputs.vpc.pri_sub_id[0] : data.terraform_remote_state.vpc.outputs.vpc.pub_sub_id[0]
 
   dynamic "root_block_device" {
     for_each = var.root_block_device

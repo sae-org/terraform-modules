@@ -44,6 +44,11 @@ variable "ec2_sg_id" {
   description = "The sg id for ec2"
 }
 
+variable "private_ins" {
+  type        = bool
+  description = "Is the ec2 being created private"
+}
+
 variable "root_block_device" {
   type = list(object({
     volume_size = number
