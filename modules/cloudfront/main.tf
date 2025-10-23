@@ -1,3 +1,65 @@
+##############################
+# Custom policies for static files
+##############################
+
+# Cache policy: long TTL, no cookies/headers/query
+resource "aws_cloudfront_cache_policy" "static_long" {
+  name        = "${var.proj_prefix}-static-long"
+  default_ttl = 31536000  # 1 year
+  max_ttl     = 31536000
+  min_ttl     = 600
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    enable_accept_encoding_brotli = true
+    enable_accept_encoding_gzip   = true
+
+    cookies_config {
+      cookie_behavior = "none"
+    }
+
+    headers_config {
+      header_behavior = "none"
+    }
+
+    query_strings_config {
+      query_string_behavior = "none"
+    }
+  }
+}
+
+# Origin request policy: minimal forwarding
+resource "aws_cloudfront_origin_request_policy" "static_min" {
+  name = "${var.proj_prefix}-static-min"
+
+  cookies_config {
+    cookie_behavior = "none"
+  }
+
+  headers_config {
+    header_behavior = "none"
+  }
+
+  query_strings_config {
+    query_string_behavior = "none"
+  }
+}
+
+# Response headers policy: force cacheable headers for static files
+resource "aws_cloudfront_response_headers_policy" "static_cache_headers" {
+  name = "${var.proj_prefix}-static-cache-headers"
+
+  custom_headers_config {
+    items {
+      header   = "Cache-Control"
+      value    = "public, max-age=31536000, immutable"
+      override = true
+    }
+  }
+}
+
+##############################
+# CloudFront Distribution
+##############################
 resource "aws_cloudfront_distribution" "this" {
   enabled         = true
   is_ipv6_enabled = true
@@ -14,14 +76,13 @@ resource "aws_cloudfront_distribution" "this" {
     custom_origin_config {
       http_port              = 80
       https_port             = 443
-      origin_protocol_policy = "https-only"     # CloudFront -> ALB over HTTP
+      origin_protocol_policy = "https-only"     
       origin_ssl_protocols   = ["TLSv1.2"]
     }
 
-    # Optional: send a header you can match in ALB/WAF if you want an extra guard
     custom_header {
-      name  = "X-From-CloudFront"
-      value = "true"
+      name  = "X-Custom-Header"
+      value = "CloudFrontOrigin"
     }
   }
 
@@ -49,8 +110,9 @@ resource "aws_cloudfront_distribution" "this" {
     allowed_methods = ["GET", "HEAD", "OPTIONS"]
     cached_methods  = ["GET", "HEAD"]
 
-    cache_policy_id          = data.aws_cloudfront_cache_policy.caching_optimized.id
-    origin_request_policy_id = data.aws_cloudfront_origin_request_policy.all_viewer.id
+    cache_policy_id             = aws_cloudfront_cache_policy.static_long.id
+    origin_request_policy_id    = aws_cloudfront_origin_request_policy.static_min.id
+    response_headers_policy_id  = aws_cloudfront_response_headers_policy.static_cache_headers.id
   }
 
   # ---------- APIs: disable caching ----------
