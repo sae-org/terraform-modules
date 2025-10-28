@@ -66,6 +66,18 @@ variable "image_uri" {
   type        = string
 }
 
+variable "cpu" { 
+  description = "Task CPU units (e.g., 256=0.25 vCPU)."  
+  type = string  
+  default = "256" 
+}
+
+variable "memory" { 
+  description = "Task memory MiB (e.g., 512)."          
+  type = string  
+  default = "512" 
+}
+
 variable "secret_vars" {
   description = "List of maps for secrets { name, valueFrom }"
   type = list(object({
