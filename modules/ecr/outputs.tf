@@ -9,5 +9,5 @@ output "repo_url" {
 
 output "image_uri" {
   description = "Full image URI with tag for ECS deployment."
-  value       = "${aws_ecr_repository.ecr_repo.repository_url}:${var.image_tag}"
+  value       = "${aws_ecr_repository.ecr_repo.repository_url}:latest"
 }
