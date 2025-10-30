@@ -3,18 +3,8 @@ variable "aws_region" {
   type        = string
 }
 
-variable "vpc_id" {
-  description = "The ID of the VPC where ECS, ALB, and related resources will be deployed."
-  type        = string
-}
-
 variable "private_subnet_ids" {
   description = "List of private subnet IDs where ECS Fargate tasks will run. Must have outbound internet access via a NAT Gateway."
-  type        = list(string)
-}
-
-variable "public_subnet_ids" {
-  description = "List of public subnet IDs where the Application Load Balancer (ALB) will be deployed. Must have a route to an Internet Gateway."
   type        = list(string)
 }
 
