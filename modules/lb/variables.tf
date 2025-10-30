@@ -30,6 +30,12 @@ variable "lb_type" {
   default     = "application"
 }
 
+variable "target_type" {
+  description = "Target Type (e.g ip, instance)"
+  type        = string
+  default     = "application"
+}
+
 # Security groups applied to the ALB (required for Application LB)
 variable "security_groups" {
   description = "List of security group IDs to associate with the ALB"

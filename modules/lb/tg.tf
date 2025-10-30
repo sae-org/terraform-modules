@@ -11,6 +11,7 @@ resource "aws_lb_target_group" "tg" {
   name     = "${var.proj_prefix}-tg-${each.key}"
   port     = each.value.port
   protocol = each.value.protocol
+  target_type = var.target_type
   vpc_id   = data.terraform_remote_state.vpc.outputs.vpc.vpc_id   # Target groups are tied to a specific VPC
 
   health_check {
