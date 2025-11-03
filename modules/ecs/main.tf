@@ -70,9 +70,4 @@ resource "aws_ecs_service" "this" {
     container_name   = var.proj_prefix
     container_port   = var.app_port
   }
-
-  lifecycle {
-    # Let CI/CD update only task_definition on deploy without TF churn
-    ignore_changes = [task_definition, desired_count]
-  }
 }
