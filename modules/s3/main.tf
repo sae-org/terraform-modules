@@ -50,20 +50,44 @@ locals {
 resource "aws_s3_bucket_policy" "s3_policy" {
   bucket = aws_s3_bucket.s3.id
   policy = jsonencode({
-    Version   = "2012-10-17"
-    Statement = [
-			{
-				Sid       = "Statement2"
-				Effect    = "Allow"
-				Principal = { 
-					AWS = local.principal_arns    # ← [your_user_1, your_user_2]
-				}
-				Action    = "s3:*"
-				Resource  = [
-					aws_s3_bucket.s3.arn,					# ← your_bucket_name
-					"${aws_s3_bucket.s3.arn}/*"  # ← your_bucket_name/* = and anything within it
-				]
-    	}
-		]
-  })
+  Version = "2012-10-17"
+  Statement = [
+    {
+      Sid       = "Statement2"
+      Effect    = "Allow"
+      Principal = {
+        AWS = local.principal_arns
+      }
+      Action   = "s3:*"
+      Resource = [
+        aws_s3_bucket.s3.arn,
+        "${aws_s3_bucket.s3.arn}/*"
+      ]
+    },
+    {
+      Sid      = "AllowGhaAccess"
+      Effect   = "Allow"
+      Action   = [
+        "s3:ListBucket",
+        "s3:GetObject",
+
+      ]
+      Resource = [
+        aws_s3_bucket.s3.arn,
+        "${aws_s3_bucket.s3.arn}/*"
+      ]
+      Principal = {
+        AWS = "*"
+      }
+      Condition = {
+        StringEquals = {
+          "aws:PrincipalAccount" = data.aws_caller_identity.current.account_id
+        }
+        StringLike = {
+          "aws:userId" = var.roles
+        }
+      }
+    }
+  ]
+})
 }

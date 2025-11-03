@@ -10,3 +10,9 @@ variable "users" {
   default     = []
   description = "IAM user names with bucket access"
 }
+
+variable "roles" {
+  type        = list(string)
+  default     = []
+  description = "IAM roles names with bucket access"
+}
