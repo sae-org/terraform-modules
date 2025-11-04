@@ -39,6 +39,10 @@ variable "app_port" {
   default     = 80
 }
 
+variable "enable_container_insights" {
+  description = "Enable container insights or not."
+  type        = string
+}
 variable "desired_count" {
   description = "The number of ECS task replicas to run concurrently in the ECS service."
   type        = number
