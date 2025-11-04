@@ -11,7 +11,7 @@ resource "aws_appautoscaling_target" "this" {
 # CPU target tracking
 resource "aws_appautoscaling_policy" "cpu" {
   count              = var.enabled && var.enable_cpu ? 1 : 0
-  name               = "${var.name_prefix}-cpu-tt"
+  name               = "${var.proj_prefix}-cpu-tt"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.this[0].resource_id
   scalable_dimension = aws_appautoscaling_target.this[0].scalable_dimension
@@ -30,7 +30,7 @@ resource "aws_appautoscaling_policy" "cpu" {
 # Memory target tracking (optional)
 resource "aws_appautoscaling_policy" "mem" {
   count              = var.enabled && var.enable_memory ? 1 : 0
-  name               = "${var.name_prefix}-mem-tt"
+  name               = "${var.proj_prefix}-mem-tt"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.this[0].resource_id
   scalable_dimension = aws_appautoscaling_target.this[0].scalable_dimension

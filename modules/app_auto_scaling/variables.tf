@@ -4,7 +4,7 @@ variable "enabled" {
   default     = true
 }
 
-variable "name_prefix" {
+variable "proj_prefix" {
   description = "Prefix for scaling policy names"
   type        = string
 }
@@ -46,7 +46,6 @@ variable "cpu_target_percent" {
 variable "enable_memory" {
   description = "Enable Memory target tracking"
   type        = bool
-  default     = false
 }
 
 variable "memory_target_percent" {
@@ -58,11 +57,9 @@ variable "memory_target_percent" {
 variable "scale_in_cooldown_seconds" {
   description = "Seconds to wait before scaling in again"
   type        = number
-  default     = 60
 }
 
 variable "scale_out_cooldown_seconds" {
   description = "Seconds to wait before scaling out again"
   type        = number
-  default     = 60
 }
