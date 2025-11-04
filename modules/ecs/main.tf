@@ -1,6 +1,15 @@
 # Cluster
 resource "aws_ecs_cluster" "this" {
   name = "${var.proj_prefix}-cluster"
+
+  setting {
+    name  = "containerInsights"
+    value = var.enable_container_insights ? "enabled" : "disabled"
+  }
+
+  tags = {
+    Name        = "${var.proj_prefix}-cluster"
+  }
 }
 
 # CloudWatch log group
@@ -69,5 +78,9 @@ resource "aws_ecs_service" "this" {
     target_group_arn = var.tg_arn
     container_name   = var.proj_prefix
     container_port   = var.app_port
+  }
+
+  lifecycle {
+    ignore_changes = [desired_count]
   }
 }
