@@ -24,9 +24,9 @@ resource "aws_subnet" "pub_sub" {
   cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 8, local.public_offset + index(var.vpc_az, each.value))
   availability_zone = each.value
 
-  tags = {
-    Name = "${var.env}-public-subnet"
-  }
+  tags = merge(var.public_subnet_tags, {
+    Name = "${var.env}-public-${each.value}"
+  })
 }
 
 # -----------------------------
@@ -41,7 +41,7 @@ resource "aws_subnet" "pri_sub" {
   cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 8, local.private_offset + index(var.vpc_az, each.value))
   availability_zone = each.value
 
-  tags = {
-    Name = "${var.env}-private-subnet"
-  }
+  tags = merge(var.private_subnet_tags, {
+    Name = "${var.env}-private-${each.value}"
+  })
 }

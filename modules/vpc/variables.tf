@@ -17,14 +17,30 @@ variable "vpc_az" {
   type        = list(string)
 }
 
+# Whether the VPC should have DNS resolution enabled (recommended true)
 variable "enable_dns_support" {
   description = "Enable DNS support in the VPC"
   type        = bool
   default     = true
 }
 
+# "Whether instances launched in the VPC should receive DNS hostnames"
 variable "enable_dns_hostnames" {
   description = "Enable DNS hostnames in the VPC"
   type        = bool
   default     = true
+}
+
+# Extra tags applied specifically to public subnets
+variable "public_subnet_tags" {
+  description = "Additional tags to add to public subnets"
+  type        = map(string)
+  default     = {}
+}
+
+# Extra tags applied specifically to private subnets
+variable "private_subnet_tags" {
+  description = "Additional tags to add to private subnets"
+  type        = map(string)
+  default     = {}
 }
