@@ -4,7 +4,7 @@ data "http" "aws_lb_controller_iam_policy" {
 
 module "alb_iam" {
   source   = "git::https://github.com/sae-org/terraform-modules.git//modules/iam?ref=main"
-  proj_prefix = "eks-alb-controller-dev"
+  proj_prefix = "eks-${var.proj_prefix}-alb-controller-${var.env}"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [

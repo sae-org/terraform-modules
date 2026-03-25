@@ -1,7 +1,7 @@
 // Create managed node groups from the map provided in var.node_groups
 resource "aws_eks_node_group" "this" {
 	cluster_name    = aws_eks_cluster.this.name
-	node_group_name = "${var.proj_prefix}-node-group"
+	node_group_name = "eks-${var.proj_prefix}-node-group-${var.env}"
 	node_role_arn = var.node_role_arn
 	subnet_ids = var.pri_subnet_ids
 	scaling_config {

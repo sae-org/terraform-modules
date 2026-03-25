@@ -2,7 +2,7 @@
 // - Create aws_eks_node_group resources for managed node groups (for_each)
 
 resource "aws_eks_cluster" "this" {
-	name     = "${var.proj_prefix}-${var.env}-${var.cluster_name}"
+	name     = "eks-${var.proj_prefix}-cluster-${var.env}"
 	role_arn = module.cluster_iam.role_arn
 	version  = var.kubernetes_version
 

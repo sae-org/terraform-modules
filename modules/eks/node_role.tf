@@ -1,6 +1,6 @@
 module "node_iam" {
   source   = "git::https://github.com/sae-org/terraform-modules.git//modules/iam?ref=main"
-  proj_prefix = "eks-node-dev"
+  proj_prefix = "eks-${var.proj_prefix}-node-${var.env}"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [

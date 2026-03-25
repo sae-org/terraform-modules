@@ -1,6 +1,6 @@
 module "cluster_iam" {
   source   = "git::https://github.com/sae-org/terraform-modules.git//modules/iam?ref=main"
-  proj_prefix = "eks-cluster-dev"
+  proj_prefix = "eks-${var.proj_prefix}-cluster-${var.env}"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
