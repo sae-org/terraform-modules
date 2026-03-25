@@ -4,13 +4,10 @@ resource "aws_db_subnet_group" "this" {
   name       = "${var.proj_prefix}-db-subnet-group"
   subnet_ids = var.subnet_ids
   
-  tags = merge(
-    {
+  tags = {
       Name        = "${var.proj_prefix}-db-subnet-group"
       Environment = var.environment
-    },
-    var.tags
-  )
+    }
 }
 
 # RDS Instance
@@ -66,14 +63,11 @@ resource "aws_db_instance" "this" {
   # Deletion Protection
   deletion_protection = var.deletion_protection
   
-  tags = merge(
-    {
+  tags = {
       Name        = "${var.proj_prefix}-db"
       Environment = var.environment
       Engine      = var.engine
-    },
-    var.tags
-  )
+    }
   
   # Lifecycle rule: Don't recreate DB if password changes
   lifecycle {

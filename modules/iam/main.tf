@@ -1,4 +1,4 @@
-# creating iam role for ec2 
+# creating iam role 
 resource "aws_iam_role" "iam_role" {
   name               = "${var.proj_prefix}-iam-role" 
   assume_role_policy = var.assume_role_policy  # JSON policy string
@@ -7,17 +7,17 @@ resource "aws_iam_role" "iam_role" {
   }
 }
 
-# creating an instance profile for ssm 
+# creating an instance profile 
 resource "aws_iam_instance_profile" "profile" {
   count = var.create_profile ? 1 : 0 
   name = "${var.proj_prefix}-profile"
   role = aws_iam_role.iam_role.name
 }
 
-# creating policy for the ec2 role 
+# creating policy for the role 
 resource "aws_iam_role_policy" "role_policy" {
   count = var.role_policy != null ? 1 : 0
-  name   = "${var.proj_prefix}-policy"
+  name   = "${var.proj_prefix}-role-policy"
   role   = aws_iam_role.iam_role.id
   policy = var.role_policy   # JSON policy string
 } 

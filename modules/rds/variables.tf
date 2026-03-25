@@ -74,7 +74,7 @@ variable "allocated_storage" {
 variable "max_allocated_storage" {
   description = "Maximum storage for autoscaling in GB (0 to disable)"
   type        = number
-  default     = 100
+  default     = 0
 }
 
 variable "storage_type" {
