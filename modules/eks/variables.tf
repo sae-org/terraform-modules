@@ -39,12 +39,6 @@ variable "min_size" {
   description = "Default min size for node groups (can be overridden per node group)"
   type        = number
 }
-
-variable "instance_types" {
-  description = "Default list of instance types for node groups (can be overridden per node group)"
-  type        = list(string)    
-}
-
 variable "cluster_iam_role_arn" {
 	description = "ARN of the IAM role for the EKS control plane (created outside this module)"
 	type        = string

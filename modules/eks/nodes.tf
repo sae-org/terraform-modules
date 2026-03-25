@@ -4,19 +4,16 @@ resource "aws_eks_node_group" "this" {
 	node_group_name = "${var.proj_prefix}-node-group"
 	node_role_arn = var.node_role_arn
 	subnet_ids = var.pri_subnet_ids
-
 	scaling_config {
 		desired_size = var.desired_size
 		max_size     = var.max_size
 		min_size     = var.min_size
 	}
-
   update_config {
     max_unavailable = 1
   }
 
-	instance_types = var.instance_types
-  
+	depends_on = [module.node_iam]
   tags = {
     Name = "${var.env}-node-group"
   }

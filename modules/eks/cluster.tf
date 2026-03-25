@@ -3,7 +3,7 @@
 
 resource "aws_eks_cluster" "this" {
 	name     = "${var.proj_prefix}-${var.env}-${var.cluster_name}"
-	role_arn = var.cluster_iam_role_arn
+	role_arn = module.cluster_iam.role_arn
 	version  = var.kubernetes_version
 
 	vpc_config {
@@ -16,9 +16,7 @@ resource "aws_eks_cluster" "this" {
     bootstrap_cluster_creator_admin_permissions = true
   }
 
-	depends_on = [
-    aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy,
-  ]
+	depends_on = [module.cluster_iam]
 	
   tags = {
     Name = "${var.env}-eks-cluster"
