@@ -7,7 +7,7 @@ resource "aws_eks_cluster" "this" {
 	version  = var.kubernetes_version
 
 	vpc_config {
-		subnet_ids             = var.pri_subnet_ids
+		subnet_ids             = data.terraform_remote_state.vpc.outputs.vpc.pri_sub_id
 		endpoint_public_access = var.endpoint_public_access
 	}
 

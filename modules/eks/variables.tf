@@ -39,16 +39,6 @@ variable "min_size" {
   description = "Default min size for node groups (can be overridden per node group)"
   type        = number
 }
-variable "cluster_iam_role_arn" {
-	description = "ARN of the IAM role for the EKS control plane (created outside this module)"
-	type        = string
-}
-
-variable "node_role_arn" {
-	description = "Default ARN of the IAM role for node groups (can be overridden per node group)"
-	type        = string
-}
-
 variable "endpoint_public_access" {
 	description = "Whether the cluster API endpoint is publicly accessible"
 	type        = bool
