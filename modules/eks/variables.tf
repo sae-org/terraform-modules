@@ -9,12 +9,6 @@ variable "proj_prefix" {
   type        = string
   default     = ""
 }
-
-# variable "cluster_name" {
-# 	description = "EKS cluster name"
-# 	type        = string
-# }
-
 variable "kubernetes_version" {
 	description = "Kubernetes version for the EKS control plane"
 	type        = string
