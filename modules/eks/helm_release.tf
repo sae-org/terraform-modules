@@ -1,48 +1,53 @@
+# AWS Load Balancer Controller Helm Release
 resource "helm_release" "lbc_controller" {
   name       = "aws-load-balancer-controller"
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
   namespace  = "kube-system"
 
-  set {
-    name  = "clusterName"
-    value = aws_eks_cluster.this.name
-  }
+  set = [
+    { 
+      name = "clusterName"
+      value = aws_eks_cluster.this.name 
+    },
+    { 
+      name = "region"
+      value = "us-east-1" 
+    },
+    { 
+      name = "serviceAccount.name"
+      value = "aws-load-balancer-controller" 
+    }
 
-  set {
-    name  = "region"
-    value = "us-east-1"
-  }
+  ]
 
-  set {
-    name  = "serviceAccount.name"
-    value = "aws-load-balancer-controller"
-  }
-
-  depends_on = [kubernetes_service_account.lbc]
+  # Ensure Helm waits for the Kubernetes service account to exist
+  depends_on = [kubernetes_service_account_v1.lbc]
 }
 
 
+# ExternalDNS Helm Release
 resource "helm_release" "external_dns" {
   name       = "external-dns"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "external-dns"
   namespace  = "kube-system"
 
-  set {
-    name  = "provider"
-    value = "aws"
-  }
+  set = [
+    { 
+      name = "provider"
+      value = "aws" 
+    },
+    { 
+      name = "aws.zoneType"
+      value = "public" 
+    },
+    { 
+      name = "serviceAccount.name"
+      value = "external-dns" 
+    }
 
-  set {
-    name  = "aws.zoneType"
-    value = "public"
-  }
+  ]
 
-  set {
-    name  = "serviceAccount.name"
-    value = "external-dns"
-  }
-
-  depends_on = [kubernetes_service_account.external_dns]
+  depends_on = [kubernetes_service_account_v1.external_dns]
 }
