@@ -14,7 +14,7 @@ module "external_dns_iam" {
         Condition = {
           StringEquals = {
             # restrict to the specific service account: kube-system/aws-load-balancer-controller
-            "${replace(module.eks_oidc.oidc_url, "https://", "")}:sub" = "system:serviceaccount:kube-system:external-dns"
+            "${replace(module.eks_oidc.issuer, "https://", "")}:sub" = "system:serviceaccount:kube-system:external-dns"
           }
         }
       }
