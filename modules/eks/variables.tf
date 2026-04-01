@@ -19,26 +19,20 @@ variable "kubernetes_version" {
 	description = "Kubernetes version for the EKS control plane"
 	type        = string
 }
+variable "desired_size" {
+  description = "Default desired size for node groups (can be overridden per node group)"
+  type        = number
+}
 
-# variable "pri_subnet_ids" {
-# 	description = "List of subnet IDs (private) for worker nodes and cluster communication"
-# 	type        = list(string)
-# }
+variable "max_size" {
+  description = "Default max size for node groups (can be overridden per node group)"
+  type        = number          
+}
 
-# variable "desired_size" {
-#   description = "Default desired size for node groups (can be overridden per node group)"
-#   type        = number
-# }
-
-# variable "max_size" {
-#   description = "Default max size for node groups (can be overridden per node group)"
-#   type        = number          
-# }
-
-# variable "min_size" {
-#   description = "Default min size for node groups (can be overridden per node group)"
-#   type        = number
-# }
+variable "min_size" {
+  description = "Default min size for node groups (can be overridden per node group)"
+  type        = number
+}
 variable "endpoint_public_access" {
 	description = "Whether the cluster API endpoint is publicly accessible"
 	type        = bool
