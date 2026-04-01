@@ -1,4 +1,4 @@
-resource "kubernetes_service_account" "lbc" {
+resource "kubernetes_service_account_v1" "lbc" {
   metadata {
     name      = "aws-load-balancer-controller"
     namespace = "kube-system"
@@ -9,7 +9,7 @@ resource "kubernetes_service_account" "lbc" {
   }
 }
 
-resource "kubernetes_service_account" "external_dns" {
+resource "kubernetes_service_account_v1" "external_dns" {
   metadata {
     name      = "external-dns"
     namespace = "kube-system"
