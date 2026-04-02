@@ -4,6 +4,9 @@ resource "helm_release" "lbc_controller" {
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
   namespace  = "kube-system"
+  timeout = 600
+  wait    = true
+  atomic  = true
 
   set = [
     { 
@@ -57,5 +60,8 @@ resource "helm_release" "external_dns" {
 
   ]
 
-  depends_on = [kubernetes_service_account_v1.external_dns]
+  depends_on = [
+    kubernetes_service_account_v1.external_dns,
+    helm_release.lbc_controller
+  ]
 }
