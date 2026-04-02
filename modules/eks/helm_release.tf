@@ -15,6 +15,10 @@ resource "helm_release" "lbc_controller" {
       value = "us-east-1" 
     },
     { 
+      name = "serviceAccount.create"
+      value = "false" 
+    },
+    { 
       name = "serviceAccount.name"
       value = "aws-load-balancer-controller" 
     }
@@ -41,6 +45,10 @@ resource "helm_release" "external_dns" {
     { 
       name = "aws.zoneType"
       value = "public" 
+    },
+    { 
+      name = "serviceAccount.create"
+      value = "false" 
     },
     { 
       name = "serviceAccount.name"
