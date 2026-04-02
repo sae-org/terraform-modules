@@ -70,6 +70,10 @@ resource "helm_release" "external_dns" {
       name  = "image.tag"
       value = "v0.18.0"
     },
+    {
+      name  = "global.security.allowInsecureImages"
+      value = "true"
+    },
     { 
       name = "serviceAccount.create"
       value = "false" 
@@ -78,7 +82,7 @@ resource "helm_release" "external_dns" {
       name = "serviceAccount.name"
       value = "external-dns" 
     }
-
+    
   ]
 
   depends_on = [
