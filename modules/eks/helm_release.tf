@@ -7,6 +7,7 @@ resource "helm_release" "lbc_controller" {
   timeout = 600
   wait    = true
   atomic  = true
+  cleanup_on_fail = true 
 
   set = [
     { 
@@ -43,6 +44,10 @@ resource "helm_release" "external_dns" {
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "external-dns"
   namespace  = "kube-system"
+  timeout         = 600        
+  wait            = true       
+  atomic          = true       
+  cleanup_on_fail = true   
 
   set = [
     { 
