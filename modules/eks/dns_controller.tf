@@ -9,12 +9,12 @@ module "external_dns_iam" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Federated = module.eks_oidc.oidc_arn
+          Federated = aws_iam_openid_connect_provider.this.arn
         }
         Condition = {
           StringEquals = {
             # restrict to the specific service account: kube-system/aws-load-balancer-controller
-            "${replace(module.eks_oidc.issuer, "https://", "")}:sub" = "system:serviceaccount:kube-system:external-dns"
+            "${replace(aws_iam_openid_connect_provider.this.url, "https://", "")}:sub" = "system:serviceaccount:kube-system:external-dns"
           }
         }
       }
