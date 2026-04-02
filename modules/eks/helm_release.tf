@@ -58,6 +58,18 @@ resource "helm_release" "external_dns" {
       name = "aws.zoneType"
       value = "public" 
     },
+    {
+      name  = "image.registry"
+      value = "registry.k8s.io"
+    },
+    {
+      name  = "image.repository"
+      value = "external-dns/external-dns"
+    },
+    {
+      name  = "image.tag"
+      value = "v0.18.0"
+    },
     { 
       name = "serviceAccount.create"
       value = "false" 
