@@ -17,6 +17,10 @@ resource "helm_release" "lbc_controller" {
       name = "region"
       value = "us-east-1" 
     },
+    {
+      name  = "vpcId"
+      value = data.terraform_remote_state.vpc.outputs.vpc.vpc_id
+    },
     { 
       name = "serviceAccount.create"
       value = "false" 
