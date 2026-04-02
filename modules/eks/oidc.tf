@@ -9,3 +9,5 @@ resource "aws_iam_openid_connect_provider" "this" {
   client_id_list  = ["sts.amazonaws.com"]
   thumbprint_list = [for c in data.tls_certificate.oidc_cert.certificates : c.sha1_fingerprint]
 }
+
+
