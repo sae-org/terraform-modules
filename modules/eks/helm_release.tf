@@ -90,3 +90,13 @@ resource "helm_release" "external_dns" {
     helm_release.lbc_controller
   ]
 }
+
+resource "helm_release" "argo_cd" {
+  name       = "argo-cd"
+  namespace  = "argocd"
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argo-cd"
+  version    = "5.45.0"
+
+  create_namespace = true
+}

@@ -3,7 +3,6 @@ variable "env" {
   type        = string
   
 }
-
 variable "proj_prefix" {
   description = "Project prefix for resource naming (optional)"
   type        = string
@@ -17,12 +16,10 @@ variable "desired_size" {
   description = "Default desired size for node groups (can be overridden per node group)"
   type        = number
 }
-
 variable "max_size" {
   description = "Default max size for node groups (can be overridden per node group)"
   type        = number          
 }
-
 variable "min_size" {
   description = "Default min size for node groups (can be overridden per node group)"
   type        = number
@@ -32,9 +29,21 @@ variable "endpoint_public_access" {
 	type        = bool
 	default     = true
 }
-
-
-
-
+variable "argo_cd_app_name" {
+  description = "Name of the Argo CD application"
+  type        = string
+}
+variable "argo_cd_app_repo_url" {
+  description = "URL of the Git repository for the Argo CD application"
+  type        = string
+}
+variable "argo_cd_app_repo_target_revision" {
+  description = "Target revision (branch, tag, commit) for the Argo CD application"
+  type        = string
+}
+variable "argo_cd_app_repo_path" {
+  description = "Path within the Git repository for the Argo CD application"
+  type        = string
+}
 
 
