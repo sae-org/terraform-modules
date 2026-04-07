@@ -25,4 +25,5 @@ resource "kubernetes_manifest" "my_app" {
       }
     }
   }
+  depends_on = [helm_release.argo_cd]
 }
