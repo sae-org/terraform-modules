@@ -49,41 +49,48 @@ resource "helm_release" "external_dns" {
   atomic          = true       
   cleanup_on_fail = true   
 
-  set = [
-    { 
-      name = "provider"
-      value = "aws" 
-    },
-    { 
-      name = "aws.zoneType"
-      value = "public" 
-    },
-    {
-      name  = "image.registry"
-      value = "registry.k8s.io"
-    },
-    {
-      name  = "image.repository"
-      value = "external-dns/external-dns"
-    },
-    {
-      name  = "image.tag"
-      value = "v0.18.0"
-    },
-    {
-      name  = "global.security.allowInsecureImages"
-      value = "true"
-    },
-    { 
-      name = "serviceAccount.create"
-      value = "false" 
-    },
-    { 
-      name = "serviceAccount.name"
-      value = "external-dns" 
-    }
-    
-  ]
+  set = concat(
+    [
+      { 
+        name = "provider"
+        value = "aws" 
+      },
+      { 
+        name = "aws.zoneType"
+        value = "public" 
+      },
+      {
+        name  = "image.registry"
+        value = "registry.k8s.io"
+      },
+      {
+        name  = "image.repository"
+        value = "external-dns/external-dns"
+      },
+      {
+        name  = "image.tag"
+        value = "v0.18.0"
+      },
+      {
+        name  = "global.security.allowInsecureImages"
+        value = "true"
+      },
+      { 
+        name = "serviceAccount.create"
+        value = "false" 
+      },
+      { 
+        name = "serviceAccount.name"
+        value = "external-dns" 
+      }
+    ], 
+    [
+      for i, domain in var.external_dns_domains : {
+        name  = "domainFilters[${i}]"
+        value = domain
+      }
+    ]
+  )
 
   depends_on = [
     kubernetes_service_account_v1.external_dns,

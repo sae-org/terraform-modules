@@ -69,3 +69,8 @@ variable "secret_key" {
   description = "Key within the AWS Secrets Manager secret containing the GitOps PAT"
   type        = string
 }
+variable "external_dns_domains" {
+  description = "List of domains to be managed by External DNS"
+  type        = list(string)
+  default     = []
+}
