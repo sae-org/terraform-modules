@@ -33,17 +33,39 @@ variable "argo_cd_app_name" {
   description = "Name of the Argo CD application"
   type        = string
 }
-variable "argo_cd_app_repo_url" {
+variable "repo_url" {
   description = "URL of the Git repository for the Argo CD application"
   type        = string
 }
-variable "argo_cd_app_repo_target_revision" {
+variable "repo_target_revision" {
   description = "Target revision (branch, tag, commit) for the Argo CD application"
   type        = string
 }
-variable "argo_cd_app_repo_path" {
+variable "repo_path" {
   description = "Path within the Git repository for the Argo CD application"
   type        = string
 }
-
-
+variable "argocd_namespace" {
+  description = "Kubernetes namespace where Argo CD is deployed"
+  type        = string
+}
+variable "secret_arn" {
+  description = "ARN of the AWS Secrets Manager secret containing the GitOps PAT"
+  type        = string      
+}
+variable "secret_version_stage" {
+  description = "Version stage of the secret to retrieve (e.g., AWSCURRENT)"
+  type        = string
+}
+variable "argo_secret_name" {
+  description = "Name of the Kubernetes secret to create for Argo CD repository credentials"
+  type        = string
+} 
+variable "github_username" {
+  description = "GitHub username for Argo CD repository authentication"
+  type        = string
+}
+variable "secret_key" {
+  description = "Key within the AWS Secrets Manager secret containing the GitOps PAT"
+  type        = string
+}
