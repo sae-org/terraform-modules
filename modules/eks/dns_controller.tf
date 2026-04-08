@@ -30,6 +30,7 @@ module "external_dns_iam" {
         Effect = "Allow"                    # Allows modifying Route 53 records in all hosted zones
         Action = [
           "route53:ChangeResourceRecordSets",
+          "route53:GetHostedZone",
           "route53:ListResourceRecordSets",
           "route53:ListTagsForResources",
         ]
