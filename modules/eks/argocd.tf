@@ -44,7 +44,7 @@ locals {
   decoded_secret = trimspace(jsondecode(local.raw_secret)[var.secret_key])
 }
 
-resource "kubernetes_secret" "argocd_repo" {
+resource "kubernetes_secret_v1" "argocd_repo" {
   metadata {
     name      = var.argo_secret_name
     namespace = var.argocd_namespace
