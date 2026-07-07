@@ -3,7 +3,7 @@
 # Creates a Route 53 public hosted zone only when create_domain = true
 # ===============================================================
 resource "aws_route53_zone" "public_hosted_zone" {
-  count = var.create_domain ? 1 : 0   # create the zone conditionally
+  count = var.create_public_zone ? 1 : 0   # create the zone conditionally
   name  = var.domain_name             # e.g., "example.com"
 }
 
@@ -37,12 +37,12 @@ resource "aws_route53_record" "site_domains" {
 
   # Build a map: record => first record object in its list
   for_each = {
-    for key, records in var.r53_records :
+    for key, records in var.public_records :
     key => records[0]
   }
 
   # Use the newly-created hosted zone (index 0 because we used count)
-  zone_id = var.create_domain ? aws_route53_zone.public_hosted_zone[0].zone_id : data.terraform_remote_state.r53[0].outputs.r53.zone_id
+  zone_id = var.create_public_zone ? aws_route53_zone.public_hosted_zone[0].zone_id : data.terraform_remote_state.r53_pub_zone
 
 # Let TF overwrite an existing identical record from prior runs
   allow_overwrite = true
